@@ -2,7 +2,9 @@
 title: "Data_Mining_Project"
 author: "Raphael"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -146,4 +148,62 @@ lm.fit2 <-lm(medv~lstat + I(lstat^2))
  summary(lm.fit2)
 ```
 
+# Thenear-zerop-valueassociatedwiththequadratic termsuggests that
+# it leads toan improvedmodel
+
+```{r}
+lm.fit <-lm(medv~lstat)
+anova(lm.fit, lm.fit2)
+```
+# 
+```{r}
+par(mfrow = c(2, 2))
+plot(lm.fit2)
+```
+
+#  using the poly() function poly()
+#to create the polynomial within lm()
+
+```{r}
+lm.fit5 <- lm(medv ~ poly(lstat, 5))
+ summary(lm.fit5)
+```
+
+# 
+
+```{r}
+summary(lm(medv ~ log(rm), data = Boston))
+```
+
+# Qualitative predictors
+```{r}
+head(Carseats)
+```
+
+#
+```{r}
+lm.fit <- lm(Sales ~ . + Income:Advertising + Price:Age,
+data = Carseats)
+ summary(lm.fit)
+```
+
+#
+```{r}
+ attach(Carseats)
+ contrasts(ShelveLoc)
+```
+
+# writing a function
+
+```{r}
+ LoadLibraries <-function() {
+ library(ISLR2)
+ library(MASS)
+ print("The libraries have been loaded.")
+ }
+```
+
+```{r}
+LoadLibraries()
+```
 
